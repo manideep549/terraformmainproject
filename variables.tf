@@ -9,6 +9,6 @@ variable "availability_zones" {
   default = ["ap-south-1a", "ap-south-1b"]
 }
 
-variable "instance_type" { default = "t2.micro" }
+variable "instance_type" { default = "t3.micro" }
 variable "db_username" { default = "admin" }
 variable "db_password" { default = "YourPassword123!" }
