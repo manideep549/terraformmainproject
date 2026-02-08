@@ -41,7 +41,6 @@ resource "aws_instance" "web1" {
   tags            = { Name = "WebServer1" }
 }
 
-
 resource "aws_instance" "web2" {
   ami             = "ami-0f5ee92e2d63afc18"
   instance_type   = var.instance_type
