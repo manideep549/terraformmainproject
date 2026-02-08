@@ -34,17 +34,17 @@ resource "aws_security_group" "web_sg" {
 }
 
 resource "aws_instance" "web1" {
-  ami           = "ami-0f58b397bc5c1f2e8"
-  instance_type = var.instance_type
-  subnet_id     = aws_subnet.public1.id
+  ami             = "ami-0f5ee92e2d63afc18"
+  instance_type   = var.instance_type
+  subnet_id       = aws_subnet.public1.id
   security_groups = [aws_security_group.web_sg.id]
-  tags = { Name = "WebServer1" }
+  tags            = { Name = "WebServer1" }
 }
 
 resource "aws_instance" "web2" {
-  ami           = "ami-0f58b397bc5c1f2e8"
-  instance_type = var.instance_type
-  subnet_id     = aws_subnet.public2.id
+  ami             = "ami-0f5ee92e2d63afc18"
+  instance_type   = var.instance_type
+  subnet_id       = aws_subnet.public2.id
   security_groups = [aws_security_group.web_sg.id]
-  tags = { Name = "WebServer2" }
+  tags            = { Name = "WebServer2" }
 }

@@ -1,7 +1,7 @@
 
 resource "aws_vpc" "main" {
   cidr_block = var.vpc_cidr
-  tags = { Name = "TwoTierVPC" }
+  tags       = { Name = "TwoTierVPC" }
 }
 
 resource "aws_internet_gateway" "igw" {
@@ -9,33 +9,33 @@ resource "aws_internet_gateway" "igw" {
 }
 
 resource "aws_subnet" "public1" {
-  vpc_id     = aws_vpc.main.id
-  cidr_block = var.public_subnet_az1
-  availability_zone = var.availability_zones[0]
+  vpc_id                  = aws_vpc.main.id
+  cidr_block              = var.public_subnet_az1
+  availability_zone       = var.availability_zones[0]
   map_public_ip_on_launch = true
-  tags = { Name = "PublicSubnet1" }
+  tags                    = { Name = "PublicSubnet1" }
 }
 
 resource "aws_subnet" "public2" {
-  vpc_id     = aws_vpc.main.id
-  cidr_block = var.public_subnet_az2
-  availability_zone = var.availability_zones[1]
+  vpc_id                  = aws_vpc.main.id
+  cidr_block              = var.public_subnet_az2
+  availability_zone       = var.availability_zones[1]
   map_public_ip_on_launch = true
-  tags = { Name = "PublicSubnet2" }
+  tags                    = { Name = "PublicSubnet2" }
 }
 
 resource "aws_subnet" "private1" {
-  vpc_id     = aws_vpc.main.id
-  cidr_block = var.private_subnet_az1
+  vpc_id            = aws_vpc.main.id
+  cidr_block        = var.private_subnet_az1
   availability_zone = var.availability_zones[0]
-  tags = { Name = "PrivateSubnet1" }
+  tags              = { Name = "PrivateSubnet1" }
 }
 
 resource "aws_subnet" "private2" {
-  vpc_id     = aws_vpc.main.id
-  cidr_block = var.private_subnet_az2
+  vpc_id            = aws_vpc.main.id
+  cidr_block        = var.private_subnet_az2
   availability_zone = var.availability_zones[1]
-  tags = { Name = "PrivateSubnet2" }
+  tags              = { Name = "PrivateSubnet2" }
 }
 
 resource "aws_eip" "nat_eip" {
