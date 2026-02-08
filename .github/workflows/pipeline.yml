@@ -1,16 +1,3 @@
-name: Terraform CI/CD
-
-on:
-  pull_request:
-    branches:
-      - main
-      - prod
-      - dev
-
-  push:
-    branches:
-      - prod
-
 jobs:
   terraform:
     name: Terraform Pipeline
@@ -19,6 +6,7 @@ jobs:
     defaults:
       run:
         shell: bash
+        working-directory: terraform
 
     steps:
       - name: Checkout code
