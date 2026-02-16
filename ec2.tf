@@ -24,7 +24,12 @@ resource "aws_security_group" "web_sg" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
-
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
   egress {
     from_port   = 0
     to_port     = 0
@@ -34,17 +39,29 @@ resource "aws_security_group" "web_sg" {
 }
 
 resource "aws_instance" "web1" {
-  ami           = "ami-0f58b397bc5c1f2e8"
-  instance_type = var.instance_type
-  subnet_id     = aws_subnet.public1.id
-  security_groups = [aws_security_group.web_sg.id]
-  tags = { Name = "WebServer1" }
+  ami                    = "ami-0f5ee92e2d63afc18"
+  instance_type          = var.instance_type
+  subnet_id              = aws_subnet.public1.id
+  vpc_security_group_ids = [aws_security_group.web_sg.id]
+
+  user_data = templatefile("${path.module}/user_data.tpl", {
+    rds_endpoint = aws_db_instance.mysql.address
+    db_user      = var.db_username
+    db_pass      = var.db_password
+  })
+
+  depends_on = [aws_db_instance.mysql]
+
+  tags = {
+    Name = "BAT-WebServer"
+  }
 }
 
+
 resource "aws_instance" "web2" {
-  ami           = "ami-0f58b397bc5c1f2e8"
-  instance_type = var.instance_type
-  subnet_id     = aws_subnet.public2.id
+  ami             = "ami-0f5ee92e2d63afc18"
+  instance_type   = var.instance_type
+  subnet_id       = aws_subnet.public2.id
   security_groups = [aws_security_group.web_sg.id]
-  tags = { Name = "WebServer2" }
+  tags            = { Name = "WebServer2" }
 }
